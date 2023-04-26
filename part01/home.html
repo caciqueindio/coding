@@ -1,32 +1,63 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-        <style>
-            body {
-                font-size: 24px;
-                text-align: center;
-            };
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Contador de tiempo versión inicial</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="" />
+    <style>
+      body {
+        font-size: 24px;
+        text-align: center;
+      }
 
-            button{
-                font-size: 20px;
-                padding: 10px;
-                margin-top: 20px;
-                background-color: #4CAF50;
-                color: white;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-            }
-            
-        </style>
-    </head>
-    <body>
-        <title>Contador de tiempo versión inicial</title>
-    </body>
+      button {
+        font-size: 20px;
+        padding: 10px;
+        margin-top: 20px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <p>La fecha y hora actual es: <span id="fecha"></span></p>
+    <button id="iniciar" onclick="iniciarContador()">Iniciar contador</button>
+    <button id="detener" onclick="detenerContador()" disabled>
+      Detener contador
+    </button>
+    <p id="contador"></p>
+
+    <script>
+      var inicioContador;
+      var tiempoContador = 0;
+      var contadorInterval;
+      
+
+      function iniciarContador() {
+        inicioContador = new Date().getTime();
+        contadorInterval = setInterval(actualizarContador, 1000);
+        document.getElementById("iniciar").disabled = true;
+        document.getElementById("detener").disabled = false;
+      }
+      function detenerContador() {
+        clearInterval(contadorInterval);
+        document.getElementById("iniciar").disabled = false;
+        document.getElementById("detener").disabled = true;
+      }
+
+      function actualizarContador() {
+        var ahora = new Date().getTime();
+        tiempoContador = Math.floor((ahora - inicioContador) / 1000);
+        document.getElementById("contador").innerHTML =
+          "Tiempo transcurrido: " + tiempoContador + " segundos";
+      }
+      document.getElementById("fecha").innerHTML = new Date().toLocaleString();
+    </script>
+  </body>
 </html>
